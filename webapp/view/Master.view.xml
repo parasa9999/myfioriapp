@@ -1,0 +1,42 @@
+<mvc:View	xmlns:core="sap.ui.core" 
+			xmlns:mvc="sap.ui.core.mvc" 
+			xmlns="sap.m" 
+			controllerName="sappress.sappress.controller.Master"
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage title="Master">
+			<semantic:subHeader>
+				<Bar id="headerBar">
+					<contentMiddle>
+						<SearchField id="searchField" 
+						             search="onSearch" 
+						             width="100%"
+						             showRefreshButton="{= !${device>/support/touch}}"/>
+					</contentMiddle>
+				</Bar>
+			</semantic:subHeader>
+			<semantic:content>
+				<PullToRefresh id="pullToRefresh" 
+				               refresh="onRefresh" 
+				               visible="{device>/support/touch}"/>
+				<List id="list" 
+				      selectionChange="onItemPressed"
+				      updateFinished="onUpdateFinished"
+				      mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				      growing="true"
+				      growingScrollToLoad="true"
+				      items="{
+				    	path: '/BusinessPartnerSet'
+				      }">
+					<items>
+						<ObjectListItem 
+						type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}"
+				        press="onItemPressed"
+						title="{CompanyName}" 
+						intro="{WebAddress}"
+						class="customHover"/>
+					</items>
+				</List>
+			</semantic:content>
+	</semantic:MasterPage>
+</mvc:View>
